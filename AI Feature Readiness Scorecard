@@ -1,0 +1,184 @@
+# AI Feature Readiness Scorecard
+
+## Purpose
+
+This scorecard helps Product Managers decide whether an AI feature should be built, how risky it is, and what controls are needed before launch.
+
+The goal is not to add AI everywhere. The goal is to decide where AI can create real user and business value safely.
+
+---
+
+## Core Question
+
+Before building an AI feature, ask:
+
+> Should AI automate this workflow, assist the user, or stay out of the decision?
+
+---
+
+## 1. Problem Fit
+
+| Question                                     | Why It Matters                                                    |
+| -------------------------------------------- | ----------------------------------------------------------------- |
+| Is the workflow repetitive?                  | AI is useful when similar tasks happen frequently.                |
+| Is the task high-volume?                     | AI creates stronger value when it reduces repeated manual effort. |
+| Is the task ambiguous?                       | AI can help summarize, classify, recommend, or retrieve context.  |
+| Is the task decision-heavy?                  | AI can support decision-making, but may need human review.        |
+| Is the current workflow slow or error-prone? | AI should solve a real pain point, not become a cosmetic feature. |
+
+### Example
+
+In payment reconciliation, finance teams manually compare transactions, settlements, refunds, and exceptions. AI can help identify likely matches and summarize mismatch reasons.
+
+---
+
+## 2. Data Readiness
+
+| Question                                | Why It Matters                                   |
+| --------------------------------------- | ------------------------------------------------ |
+| Do we have access to the required data? | AI cannot perform well without the right inputs. |
+| Is the data clean and structured?       | Poor data quality leads to poor AI outputs.      |
+| Is the data permissioned correctly?     | Enterprise AI must respect role-based access.    |
+| Is the data updated frequently enough?  | Outdated data can create wrong recommendations.  |
+| Can we trace which data was used?       | Source visibility improves trust.                |
+
+### Example
+
+A fleet operations copilot should only answer from permitted vehicle, hub, deployment, payment, and recovery data.
+
+---
+
+## 3. Trust Risk
+
+| Question                                                                   | Why It Matters                                                       |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| What happens if the AI is wrong?                                           | Some mistakes are minor, others create financial or compliance risk. |
+| Is the workflow customer-facing?                                           | Wrong AI outputs can damage customer trust.                          |
+| Does the workflow involve money, identity, compliance, or legal decisions? | High-risk workflows need stronger controls.                          |
+| Can the user verify the answer easily?                                     | Hard-to-verify outputs need explanation and review.                  |
+
+### Example
+
+AI can summarize why a refund is delayed, but it should not confirm that a refund is completed unless the payment system confirms it.
+
+---
+
+## 4. Workflow Impact
+
+| Question                                      | Why It Matters                                               |
+| --------------------------------------------- | ------------------------------------------------------------ |
+| Will AI reduce user effort?                   | AI should make the workflow easier, not heavier.             |
+| Does it remove steps or only add suggestions? | A useful AI feature improves task completion.                |
+| Will users trust the output?                  | Adoption depends on explainability and reliability.          |
+| Does it fit into the existing workflow?       | AI should not force users to change behavior too much in v1. |
+
+### Example
+
+For a dashboard insight generator, AI should not just describe charts. It should highlight anomalies, explain possible causes, and suggest next actions.
+
+---
+
+## 5. Human-in-the-Loop Requirement
+
+| AI Role   | When To Use                                                     |
+| --------- | --------------------------------------------------------------- |
+| Suggest   | When risk is high and user judgment is required.                |
+| Draft     | When the user can review and edit before sending or acting.     |
+| Recommend | When AI can rank options, but the user decides.                 |
+| Automate  | When confidence is high, risk is low, and rollback is possible. |
+
+### Example
+
+In reconciliation, AI may auto-match high-confidence transactions, but low-confidence exceptions should go to finance operations for review.
+
+---
+
+## 6. Evaluation Plan
+
+| Metric                     | What It Measures                                      |
+| -------------------------- | ----------------------------------------------------- |
+| Accuracy                   | Whether the AI output is correct.                     |
+| Relevance                  | Whether the output answers the user’s actual need.    |
+| Completion rate            | Whether users can finish the task faster.             |
+| Override rate              | How often users reject or change AI output.           |
+| Escalation rate            | How often AI output requires human help.              |
+| Hallucination rate         | How often AI gives unsupported or wrong information.  |
+| Latency                    | Whether the response is fast enough for the workflow. |
+| Cost per successful output | Whether the AI feature is economically scalable.      |
+
+---
+
+## 7. Rollout Safety
+
+| Control              | Why It Matters                                      |
+| -------------------- | --------------------------------------------------- |
+| Feature flags        | Allows controlled rollout and rollback.             |
+| Audit logs           | Tracks what AI suggested and what action was taken. |
+| Confidence scores    | Helps decide when to automate or escalate.          |
+| Source references    | Helps users trust and verify AI output.             |
+| Fallback flow        | Ensures users are not blocked when AI fails.        |
+| Human approval       | Required for sensitive or high-risk actions.        |
+| Monitoring dashboard | Tracks quality, usage, failures, latency, and cost. |
+
+---
+
+## AI Feature Decision Matrix
+
+| Score                             | Recommendation                                       |
+| --------------------------------- | ---------------------------------------------------- |
+| High value + low risk + good data | Build and pilot quickly                              |
+| High value + high risk            | Build assistive version with human review            |
+| Low value + high complexity       | Deprioritize                                         |
+| Poor data readiness               | Fix data foundation first                            |
+| High uncertainty                  | Run discovery or prototype before roadmap commitment |
+
+---
+
+## Product Principle
+
+AI should not be added only because it is possible.
+
+AI should be added when it improves a real workflow, can be evaluated clearly, and can be trusted by users.
+
+---
+
+## Example Use Case: Payment Reconciliation AI Assistant
+
+### AI Can Help With
+
+* Identifying likely transaction matches
+* Summarizing mismatch reasons
+* Grouping exceptions
+* Suggesting next best action
+* Drafting customer or internal notes
+* Highlighting high-risk cases
+
+### AI Should Not Automatically Do In V1
+
+* Approve refunds without human review
+* Override payment records
+* Change customer balances
+* Close disputes without verification
+* Expose sensitive customer or bank details
+
+### Required Controls
+
+* Confidence score
+* Human approval
+* Source-backed output
+* Audit log
+* Role-based access
+* Manual override
+* Fallback to existing workflow
+
+---
+
+## Final Takeaway
+
+A strong AI PM does not only ask:
+
+> Can we build this with AI?
+
+A strong AI PM asks:
+
+> Should AI assist, recommend, automate, or stay out of this workflow?
